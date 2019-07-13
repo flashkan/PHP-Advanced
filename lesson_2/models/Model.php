@@ -14,7 +14,7 @@ abstract class Model
     /**
      * Model constructor.
      * При создании нового класса передает его в пременную $db класса Model.
-     * @param DB $db ывжафыова
+     * @param DB $db Новый класс.
      */
     public function __construct($db)
     {
