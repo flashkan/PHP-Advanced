@@ -8,6 +8,10 @@ class Goods extends Model
     protected $description;
     protected $price;
 
+    /**
+     * Возвращает стоку с названием таблицы из базы данных.
+     * @return string Название таблицы.
+     */
     public function getTableName()
     {
         return 'goods';

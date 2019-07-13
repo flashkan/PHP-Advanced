@@ -9,6 +9,10 @@ class Cart extends Model
     protected $quantity;
     protected $userLog;
 
+    /**
+     * Возвращает стоку с названием таблицы из базы данных.
+     * @return string Название таблицы.
+     */
     public function getTableName()
     {
         return 'cart';

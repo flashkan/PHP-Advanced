@@ -10,6 +10,10 @@ class Users extends Model
     protected $email;
     protected $isAdmin;
 
+    /**
+     * Возвращает стоку с названием таблицы из базы данных.
+     * @return string Название таблицы.
+     */
     public function getTableName()
     {
         return 'users';
