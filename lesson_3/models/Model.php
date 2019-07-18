@@ -54,7 +54,7 @@ abstract class Model
     /**
      * Если получает id, переопределяет существующие значения. В противном случае создает новый элемент.
      * @param array $params Значения параметров.
-     * @param null|int $id Id элемента.
+     * @param null|array $id Id элемента.
      */
     public function save($params = [], $id = null)
     {
@@ -68,13 +68,26 @@ abstract class Model
     /**
      * Переопределяет существующие значения по соответственному id.
      * @param array $params Значения параметров.
-     * @param int $id Id элемента.
+     * @param array $id Id элемента.
      */
     private function update($params, $id)
     {
         $tableName = $this->getTableName();
-        $sql = "UPDATE {$tableName} SET `name` = :userName, `login` = :userLogin, `pass` = :userPass WHERE `id` = :id;";
-        $this->bd->execute($sql, [':userName' => $params['name'], ':userLogin' => $params['login'], ':userPass' => $params['pass'], ':id' => $id]);
+        $sql = "UPDATE {$tableName} SET ";
+        $keyId = key($id);
+        $array = [':id' => $id[$keyId]];
+        foreach ($params as $key => $value) 
+        {
+            $nameKey = ":{$tableName}_{$key}";
+            if (end($params) === $value) {
+                $sql .= "`$key` = $nameKey WHERE `$keyId` = :id;";
+                $array[$nameKey] = $value;
+            } else {
+                $sql .= "`$key` = $nameKey, ";
+                $array[$nameKey] = $value;
+            }
+        }
+        $this->bd->execute($sql, $array);
     }
 
     /**
@@ -84,8 +97,33 @@ abstract class Model
     private function insert($params)
     {
         $tableName = $this->getTableName();
-        $sql = "INSERT INTO {$tableName} (`name`, `login`, `pass`) VALUE (:userName, :userLogin, :userPass);";
-        $this->bd->execute($sql, [':userName' => $params['name'], ':userLogin' => $params['login'], ':userPass' => $params['pass']]);
+
+        $sql = "INSERT INTO {$tableName} (";
+        $array = [];
+        foreach ($params as $key => $value) 
+        {
+            $nameKey = ":{$tableName}_{$key}";
+            if (end($params) === $value) {
+                $sql .= "`$key`) ";
+                $array[$nameKey] = $value;
+            } else {
+                $sql .= "`$key`, ";
+                $array[$nameKey] = $value;
+            }
+        }
+        $sql .= "VALUE (";
+        foreach ($params as $key => $value) 
+        {
+            $nameKey = ":{$tableName}_{$key}";
+            if (end($params) === $value) {
+                $sql .= "$nameKey);";
+                $array[$nameKey] = $value;
+            } else {
+                $sql .= "$nameKey, ";
+                $array[$nameKey] = $value;
+            }
+        }
+        $this->bd->execute($sql, $array);
     }
 
     /**
@@ -93,9 +131,9 @@ abstract class Model
      */
     public function delete($id)
     {
+        $keyId = key($id);
         $tableName = $this->getTableName($id);
-        $sql = "DELETE FROM {$tableName} WHERE `id` = :id;";
-        $this->bd->execute($sql, [':id' => $id]);
+        $sql = "DELETE FROM {$tableName} WHERE `$keyId` = :id;";
+        $this->bd->execute($sql, [':id' => $id[$keyId]]);
     }
-
 }

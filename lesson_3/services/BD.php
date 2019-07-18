@@ -9,7 +9,7 @@ class BD implements IBD
       'user' => 'root',
       'pass' => '',
       'driver' => 'mysql',
-      'bd' => 'test',
+      'bd' => 'homework',
       'host' => 'localhost:3307',
       'charset' => 'UTF8',
     ];

@@ -10,6 +10,6 @@ class Good extends Model
 
     protected function getTableName()
     {
-        return 'booking';
+        return 'goods';
     }
 }
