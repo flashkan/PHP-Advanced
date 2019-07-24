@@ -1,0 +1,32 @@
+html,
+body {
+    height: 100vh;
+}
+
+.false-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #eeeeee;
+}
+
+.container {
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.footer {
+    height: 50px;
+    background-color: grey;
+}
+
+.good {
+    background-color: #fff;
+}
+
+.good:hover {
+    box-shadow: 0 0 5px 1px black;
+    text-decoration: none;
+    background-color: #eee;
+}
