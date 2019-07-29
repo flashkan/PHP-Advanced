@@ -28,7 +28,8 @@ class CartController extends Controller
 
     public function addAction()
     {
-        $userId = 4;
+        session_start();
+        $userId = $_SESSION['userId'];
         $goodId = $this->request->getId();
         $newGood = new CartRepository();
         $goodsAll = $newGood->getAll();

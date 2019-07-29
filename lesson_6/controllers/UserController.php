@@ -35,11 +35,13 @@ class UserController extends Controller
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $user = new UserRepository();
             $users = (new UserRepository())->getAll();
-
+            var_dump($_POST);
             // проверка на пустые поля в запросе
             foreach ($_POST as $elem) {
-                if (!$elem) header('Location: /user/registration');
-                exit;
+                if (!$elem) {
+                    header('Location: /user/registration');
+                    exit;
+                }
             }
 
             // проверка на совпадение существующего логина
@@ -72,6 +74,8 @@ class UserController extends Controller
 
     public function loginUserAction()
     {
+        session_start();
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $users = (new UserRepository)->getAll();
             foreach ($users as $user) {
@@ -80,6 +84,8 @@ class UserController extends Controller
                     $pass = $user->getUserPass();
                     if ($pass === $_POST['userPass']) {
                         $userId = $user->getId();
+                        $_SESSION['user'] = $userId;
+                        $_SESSION['auth'] = true;
                         header('Location: /good');
                         exit;
                     }
