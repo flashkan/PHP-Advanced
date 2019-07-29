@@ -1,0 +1,16 @@
+{{ include('layouts\\header.php') }}
+
+<div class="mb-3 d-flex justify-content-center align-items-center btn-group">
+    <a class="btn btn-warning" href="/good/goods">Товары</a>
+    <a class="btn btn-warning" href="/cart/goods">Корзина</a>
+    <a class="btn btn-warning" href="/user/registration">Регистрация</a>
+    <form class="form-group d-flex mb-1" action="/user/loginUser" method="post">
+        <input name="userLog" class="form-control" type="text" placeholder="Логин">
+        <input name="userPass" class="form-control" type="password" placeholder="Пароль">
+        <button type="submit" class="btn btn-warning">Войти</button>
+    </form>
+</div>
+<div class="content">{{ content|raw }}</div>
+
+{{ include('layouts\\footer.php') }}
+
