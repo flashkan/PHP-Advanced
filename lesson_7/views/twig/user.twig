@@ -1,0 +1,12 @@
+{% extends 'layouts/main.twig' %}
+
+{% block title %}Пользователи{% endblock %}
+
+{% block body %}
+    <div>
+        <p>Имя - {{ user.userName }}</p>
+        <p>Логин - {{ user.userLogin }}</p>
+        <p>E-mail - {{ user.userEmail }}</p>
+        <p>Телефон - {{ user.userPhone }}</p>
+    </div>
+{% endblock %}

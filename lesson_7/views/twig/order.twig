@@ -1,0 +1,39 @@
+{% extends 'layouts/main.twig' %}
+
+{% block title %}Пользователи{% endblock %}
+
+{% block body %}
+    <h4 class="text-center">Ваши товары :</h4>
+    <div class="goods">
+        {% for good in goods %}
+            <div class='good p-2 m-2 d-flex flex-column align-items-center'>
+                <img src="http://dummyimage.com/120"/>
+                <p>{{ good.goodName }}</p>
+                <p>{{ good.goodDescription }}</p>
+                <p>{{ good.goodQuantity }} x {{ good.goodPrice }} руб</p>
+                <p></p>
+            </div>
+        {% endfor %}
+    </div>
+    <h4>Общее количество товаров : {{ totalQuantity }}</h4>
+    <h5>Общая стоимость : {{ totalPrice }} руб</h5>
+    <form action="/order/newOrder" method="post" class="row">
+        <div class="form-group col-6">
+            <label for="userEmail">E-mail</label>
+            <input name="userEmail" type="email" class="form-control" id="userEmail" placeholder="E-mail" value="{{ user.userEmail }}">
+        </div>
+        <div class="form-group col-6">
+            <label for="userPhone">Телефон</label>
+            <input name="userPhone" type="text" class="form-control" id="userPhone" placeholder="Телефон" value="{{ user.userPhone }}">
+        </div>
+        <div class="form-group col-12">
+            <label for="orderAddress">Адресс доставки</label>
+            <input name="orderAddress" type="text" class="form-control" id="orderAddress" placeholder="Адресс доставки">
+        </div>
+        <p class="col-12 text-center">Проверьте данные и укажите адрес доствки</p>
+        <div class="col-12 d-flex justify-content-center">
+            <button type="submit" class="col-12 btn btn-primary">Отправить заказ</button>
+        </div>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{{ include('layouts\\header.php') }}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded">
+    <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link {% if currentUrl == '/good/mainPage'%}active{% endif %}" href="/good/mainPage">Главная</a>
+            <a class="nav-item nav-link {% if currentUrl == '/good/goods'%}active{% endif %}" href="/good/goods">Товары</a>
+            <a class="nav-item nav-link {% if currentUrl == '/cart/goods'%}active{% endif %} {% if not userId %}disabled{% endif %}" href="/cart/goods">Корзина</a>
+            <a class="nav-item nav-link {% if currentUrl == '/order/orders'%}active{% endif %} {% if not userId %}disabled{% endif %}" href="/order/orders">Заказы</a>
+            <a class="nav-item nav-link {% if currentUrl == '/user/user'%}active{% endif %} {% if not userId %}disabled{% endif %}" href="/user/user">Личный кабинет</a>
+        </div>
+        <div class="navbar-nav d-flex align-items-center">
+            {% if userId %}
+                <p class="text-success mb-0">Вы авторизованы как {{ userLog }}</p>
+                <a class="nav-item nav-link" href="/user/logout">Выйти</a>
+            {% else %}
+                <form class="form-group d-flex mb-1" action="/user/loginUser" method="post">
+                    <a class="nav-item nav-link {% if currentUrl == '/user/registration'%}active{% endif %}" href="/user/registration">Регистрация</a>
+                    <input name="userLog" class="form-control" type="text" placeholder="Логин">
+                    <input name="userPass" class="form-control" type="password" placeholder="Пароль">
+                    <button type="submit" class="btn btn-warning">Войти</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+<div class="content">{% block body %}{% endblock %}</div>
+
+{{ include('layouts\\footer.php') }}
+
