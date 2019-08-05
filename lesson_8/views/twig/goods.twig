@@ -1,0 +1,17 @@
+{% extends 'layouts/main.twig' %}
+
+{% block title %}Товары{% endblock %}
+
+{% block body %}
+
+    <div class="goods">
+        {% for good in goods %}
+            <a href='/good/good?id={{ good.id }}' class='good p-2 m-2 d-flex flex-column align-items-center'>
+                <img src="http://dummyimage.com/120"/>
+                <p>{{ good.goodName }}</p>
+                <p>{{ good.goodDescription }}</p>
+                <p>{{ good.goodPrice }} руб</p>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}

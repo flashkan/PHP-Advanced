@@ -1,0 +1,32 @@
+{% extends 'layouts/main.twig' %}
+
+{% block title %}Пользователи{% endblock %}
+
+{% block body %}
+    {% if not goods %}
+        <div class="d-flex flex-column mt-5">
+            <p class="text-danger text-center">Ваша корзина пуста</p>
+            <div class="d-flex justify-content-center">
+                <a class="btn btn-success" href="/good/goods">Хотите начать покупки?</a>
+            </div>
+
+        </div>
+    {% endif %}
+    <div class="goods">
+        {% for good in goods %}
+            <a href='/cart/good?id={{ good.id }}' class='good p-2 m-2 d-flex flex-column align-items-center'>
+                <img src="http://dummyimage.com/120"/>
+                <p>{{ good.goodName }}</p>
+                <p>{{ good.goodDescription }}</p>
+                <p>{{ good.goodPrice }} руб</p>
+                <p>Количество : {{ good.goodQuantity }}</p>
+            </a>
+        {% endfor %}
+    </div>
+    {% if goods %}
+        <h4>Общее количество товаров : {{ totalQuantity }}</h4>
+        <h5>Общая стоимость : {{ totalPrice }} руб</h5>
+        <a class="btn btn-success" href="/order/order">Оформить заказ</a>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,106 @@
+{% extends 'layouts/main.twig' %}
+
+{% block title %}Пользователи{% endblock %}
+
+{% block body %}
+    {% if userAdmin == true %}
+        <h4 class="text-center mt-4">Администратор</h4>
+    {% endif %}
+    <div class="d-flex justify-content-around my-5">
+        <p class="bg-warning p-3 rounded-pill">Имя - {{ user.userName }}</p>
+        <p class="bg-warning p-3 rounded-pill">Логин - {{ user.userLogin }}</p>
+        <p class="bg-warning p-3 rounded-pill">E-mail - {{ user.userEmail }}</p>
+        <p class="bg-warning p-3 rounded-pill">Телефон - {{ user.userPhone }}</p>
+    </div>
+    <div class="d-flex btn-group">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#changePassword">
+            Смена пароля
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="changePasswordLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="changePassword">Смена пароля</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/user/changePassword" method="post" class="row">
+                            <div class="form-group col-12">
+                                <label for="oldPass">Введите старый пароль</label>
+                                <input name="oldPass" type="password" class="form-control" id="oldPass"
+                                       placeholder="Старый пароль">
+                            </div>
+                            <div class="form-group col-12">
+                                <label for="newPass">Введите новый пароль</label>
+                                <input name="newPass" type="password" class="form-control" id="newPass"
+                                       placeholder="Новый пароль">
+                            </div>
+                            <div class="form-group col-12">
+                                <label for="newPassTwo">Введите новый пароль еще раз</label>
+                                <input name="newPassTwo" type="password" class="form-control" id="newPassTwo"
+                                       placeholder="Новый пароль еще раз">
+                            </div>
+                            <div class="col-12 d-flex justify-content-center">
+                                <button type="submit" class="col-12 btn btn-primary">Сменить пароль</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#changeData">
+            Изменить данные
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="changeData" tabindex="-1" role="dialog" aria-labelledby="changeDataLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="changeDataLabel">Изменить данные</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/user/changeUserInfo" method="post" class="row">
+                            <div class="form-group col-12">
+                                <label for="userName">Имя</label>
+                                <input name="userName" type="text" class="form-control" id="userName" placeholder="Имя"
+                                       value="{{ user.userName }}">
+                            </div>
+                            <div class="form-group col-12">
+                                <label for="userLogin">Логин</label>
+                                <input name="userLogin" type="text" class="form-control" id="userLogin"
+                                       placeholder="Логин" value="{{ user.userLogin }}">
+                            </div>
+                            <div class="form-group col-12">
+                                <label for="userPhone">Номер телефона</label>
+                                <input name="userPhone" type="text" class="form-control" id="userPhone"
+                                       placeholder="Номер телефона" value="{{ user.userPhone }}">
+                            </div>
+                            <div class="form-group col-12">
+                                <label for="userEmail">E-mail</label>
+                                <input name="userEmail" type="email" class="form-control" id="userEmail"
+                                       placeholder="E-mail" value="{{ user.userEmail }}">
+                            </div>
+                            <div class="col-12 d-flex justify-content-center">
+                                <button type="submit" class="col-12 btn btn-primary">Изменить данные</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

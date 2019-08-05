@@ -1,0 +1,48 @@
+{% extends 'layouts/main.twig' %}
+
+{% block title %}Пользователи{% endblock %}
+
+{% block body %}
+    <div class="">
+        {% if orders %}
+            <table class="table table-bordered table-dark">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">user ID</th>
+                    <th scope="col">E-mail пользователя</th>
+                    <th scope="col">Телефон пользователя</th>
+                    <th scope="col">Адрес пользователя</th>
+                    <th scope="col">Общая стоимость заказа</th>
+                    <th scope="col">Дата заказа</th>
+                    <th scope="col">Статус заказа</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for order in orders %}
+                    <tr>
+                        <th scope="row">{{ order.id }}</th>
+                        <td>{{ order.userId }}</td>
+                        <td>{{ order.userEmail }}</td>
+                        <td>{{ order.userPhone }}</td>
+                        <td>{{ order.userAddress }}</td>
+                        <td>{{ order.totalPrice }}</td>
+                        <td>{{ order.orderData }}</td>
+                        <td>{{ order.orderStatus }}</td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        {% else %}
+            <div class="d-flex flex-column mt-5">
+                <p class="text-danger text-center">У вас пока нет заказов</p>
+                <div class="d-flex justify-content-center">
+                    <a class="btn btn-success" href="/good/goods">Хотите начать покупки?</a>
+                    <a class="btn btn-success" href="/cart/goods">Или проверить корзину</a>
+                </div>
+            </div>
+        {% endif %}
+
+    </div>
+{% endblock %}
